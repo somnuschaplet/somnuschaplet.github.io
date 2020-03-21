@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Somnus</title>
+  <title>Ucore-lab1-part1 | Somnus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Somnus">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="[练习1][练习1.1] 操作系统镜像文件 ucore.img 是如何一步一步生成的?(需要比较详细地解释 Makefile 中每一条相关命令和命令参数的含义,以及说明命令导致的结果)  输入命令 “make V&#x3D;”，观察运行结果如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ucore-lab1-part1">
+<meta property="og:url" content="http://yoursite.com/2020/03/22/Ucore-lab1-part1/index.html">
 <meta property="og:site_name" content="Somnus">
+<meta property="og:description" content="[练习1][练习1.1] 操作系统镜像文件 ucore.img 是如何一步一步生成的?(需要比较详细地解释 Makefile 中每一条相关命令和命令参数的含义,以及说明命令导致的结果)  输入命令 “make V&#x3D;”，观察运行结果如下：">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-21T16:33:16.273Z">
+<meta property="article:modified_time" content="2020-03-21T16:41:03.234Z">
 <meta property="article:author" content="Somnus">
 <meta name="twitter:card" content="summary">
   
@@ -152,76 +156,241 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Ucore-lab1-part1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Ucore-lab1-part1
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/22/Ucore-lab1-part1/" class="archive-article-date">
+
+        
+        <a href="/2020/03/22/Ucore-lab1-part1/" class="archive-article-date">
   	<time datetime="2020-03-21T16:33:16.273Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/22/Ucore-lab1-part1/">Ucore-lab1-part1</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="练习1"><a href="#练习1" class="headerlink" title="[练习1]"></a>[练习1]</h3><p>[练习1.1] 操作系统镜像文件 ucore.img 是如何一步一步生成的?(需要比较详细地解释 Makefile 中每一条相关命令和命令参数的含义,以及说明命令导致的结果)</p>
+<ul>
+<li>输入命令 “make V=”，观察运行结果如下：<a id="more"></a>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">+ cc kern/init/init.c           <span class="comment">//编译init.c</span></span><br><span class="line">      gcc -c kern/init/init.c -o obj/kern/init/init.o</span><br><span class="line"></span><br><span class="line">+ cc kern/libs/readline.c       <span class="comment">//编译readline.c</span></span><br><span class="line">      gcc -c kern/libs/readline.c -o </span><br><span class="line">      obj/kern/libs/readline.o</span><br><span class="line"></span><br><span class="line">+ cc kern/libs/stdio.c          <span class="comment">//编译stdlio.c</span></span><br><span class="line">      gcc -c kern/libs/stdio.c -o obj/kern/libs/stdio.o</span><br><span class="line"></span><br><span class="line">+ cc kern/debug/kdebug.c        <span class="comment">//编译kdebug.c</span></span><br><span class="line">      gcc -c kern/debug/kdebug.c -o obj/kern/debug/kdebug.o</span><br><span class="line"></span><br><span class="line">+ cc kern/debug/kmonitor.c      <span class="comment">//编译komnitor.c</span></span><br><span class="line">      gcc  -c kern/debug/kmonitor.c -o         </span><br><span class="line">      obj/kern/debug/kmonitor.o</span><br><span class="line"></span><br><span class="line">+ cc kern/debug/panic.c         <span class="comment">//编译panic.c</span></span><br><span class="line">      gcc  -c kern/debug/panic.c -o obj/kern/debug/panic.o</span><br><span class="line"></span><br><span class="line">+ cc kern/driver/clock.c        <span class="comment">//编译clock.c</span></span><br><span class="line">      gcc  -c kern/driver/clock.c -o obj/kern/driver/clock.o</span><br><span class="line"></span><br><span class="line">+ cc kern/driver/console.c      <span class="comment">//编译console.c</span></span><br><span class="line">      gcc -c kern/driver/console.c -o </span><br><span class="line">      obj/kern/driver/console.o</span><br><span class="line"></span><br><span class="line">+ cc kern/driver/intr.c         <span class="comment">//编译intr.c</span></span><br><span class="line">      gcc -c kern/driver/intr.c -o obj/kern/driver/intr.o</span><br><span class="line"></span><br><span class="line">+ cc kern/driver/picirq.c       <span class="comment">//编译prcirq.c</span></span><br><span class="line">      gcc -c kern/driver/picirq.c -o </span><br><span class="line">      obj/kern/driver/picirq.o</span><br><span class="line"></span><br><span class="line">+ cc kern/trap/trap.c           <span class="comment">//编译trap.c</span></span><br><span class="line">      gcc -c kern/trap/trap.c -o obj/kern/trap/trap.o</span><br><span class="line"></span><br><span class="line">+ cc kern/trap/trapentry.S      <span class="comment">//编译trapentry.S</span></span><br><span class="line">      gcc -c kern/trap/trapentry.S -o </span><br><span class="line">      obj/kern/trap/trapentry.o</span><br><span class="line"></span><br><span class="line">+ cc kern/trap/vectors.S        <span class="comment">//编译vectors.S</span></span><br><span class="line">      gcc -c kern/trap/vectors.S -o obj/kern/trap/vectors.o</span><br><span class="line"></span><br><span class="line">+ cc kern/mm/pmm.c              <span class="comment">//编译pmm.c</span></span><br><span class="line">      gcc -c kern/mm/pmm.c -o obj/kern/mm/pmm.o</span><br><span class="line"></span><br><span class="line">+ cc libs/printfmt.c            <span class="comment">//编译printfmt.c</span></span><br><span class="line">      gcc -c libs/printfmt.c -o obj/libs/printfmt.o</span><br><span class="line"></span><br><span class="line">+ cc libs/<span class="built_in">string</span>.c              <span class="comment">//编译string.c</span></span><br><span class="line">      gcc -c libs/<span class="built_in">string</span>.c -o obj/libs/<span class="built_in">string</span>.o</span><br><span class="line"></span><br><span class="line">+ ld bin/kernel                 <span class="comment">//链接成kernel</span></span><br><span class="line">      ld -o bin/kernel  </span><br><span class="line">      obj/kern/init/init.o      obj/kern/libs/readline.o </span><br><span class="line">      obj/kern/libs/stdio.o     obj/kern/debug/kdebug.o </span><br><span class="line">      obj/kern/debug/kmonitor.o obj/kern/debug/panic.o </span><br><span class="line">      obj/kern/driver/clock.o   obj/kern/driver/console.o </span><br><span class="line">      obj/kern/driver/intr.o    obj/kern/driver/picirq.o</span><br><span class="line">      obj/kern/trap/trap.o      obj/kern/trap/trapentry.o </span><br><span class="line">      obj/kern/trap/vectors.o   obj/kern/mm/pmm.o  </span><br><span class="line">      obj/libs/printfmt.o       obj/libs/<span class="built_in">string</span>.o</span><br><span class="line"></span><br><span class="line">+ cc boot/bootasm.S             <span class="comment">//编译bootasm.c</span></span><br><span class="line">     gcc  -c boot/bootasm.S -o obj/boot/bootasm.o</span><br><span class="line"></span><br><span class="line">+ cc boot/bootmain.c            <span class="comment">//编译bootmain.c</span></span><br><span class="line">     gcc -c boot/bootmain.c -o obj/boot/bootmain.o</span><br><span class="line"></span><br><span class="line">+ cc tools/sign.c               <span class="comment">//编译sign.c</span></span><br><span class="line">    gcc -c tools/sign.c -o obj/sign/tools/sign.o</span><br><span class="line">    gcc -O2 obj/sign/tools/sign.o -o bin/sign</span><br><span class="line"></span><br><span class="line">+ ld bin/bootblock              <span class="comment">//根据sign规范生成bootblock</span></span><br><span class="line">    ld -m  elf_i386 -nostdlib -N -e start -Ttext <span class="number">0x7C00</span> </span><br><span class="line">    obj/boot/bootasm.o  obj/boot/bootmain.o</span><br><span class="line">    -o obj/bootblock.o</span><br><span class="line"></span><br><span class="line">     <span class="comment">//创建大小为10000个块的ucore.img，初始化为0，每个块为512字节(先使用zero文件来申请空间)</span></span><br><span class="line">dd <span class="keyword">if</span>=/dev/zero of=bin/ucore.img count=<span class="number">10000</span></span><br><span class="line">    <span class="comment">//把bootblock中的内容写到第一个块</span></span><br><span class="line">dd <span class="keyword">if</span>=bin/bootblock of=bin/ucore.img conv=notrunc</span><br><span class="line">    <span class="comment">//从第二个块开始写kernel中的内容</span></span><br><span class="line">dd <span class="keyword">if</span>=bin/kernel of=bin/ucore.img <span class="built_in">seek</span>=<span class="number">1</span> conv=notrunc</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>先来说一下文件编译的四个过程：</strong></p>
+<blockquote>
+<ul>
+<li><strong>first step:预编译(Preprocessing)</strong><br>预处理过程实质上是处理“#”，将#include包<br>含的头文件直接拷贝到hell.c当中,将 #define定义的宏进行替换，同时将代码中没&gt;用的注释部分删除等<br>具体做的事儿如下：<br>（1）将所有的#define删除，并且展开所有的宏定义。说白了就是字符替换<br>（2）处理所有的条件编译指令，#ifdef #ifndef #endif等，就是带#的那些<br>（3）处理#include，将#include指向的文件插入到该行处<br>（4）删除所有注释<br>（5）添加行号和文件标示，这样的在调试和编译出错的时候才知道是是哪个文件的哪一行<br>（6）保留#pragma编译器指令，因为编译器需要使用它们。</li>
+</ul>
+<p><strong><em>p.s. gcc -E XXX.c -o XXX.c可以生成预处理后的文件。</em></strong></p>
+<ul>
+<li><strong>second step:编译(Compilation)</strong><br>编译的过程实质上是把高级语言翻译成机器语言的过程，即对XXX.c做了这些事儿<br>（1）词法分析<br>（2）语法分析<br>（3）语义分析<br>（4）优化后生成相应的汇编代码，从高级语言-&gt;汇编语言-&gt;机器语言（二进制）</li>
+</ul>
+<p><strong><em>p.s. gcc -S XXX.c -o XXX.s可以生成汇编代码</em></strong></p>
+<ul>
+<li><strong>third step:汇编(Assemble)</strong><br>汇编过程将上一步的汇编代码转换成机器码(machine code)，这一步产生的文件叫做目标文件，是二进制格式。<br>gcc汇编过程通过as命令完成。</li>
+</ul>
+<p><strong><em>p.s. as XXX.s -o XXX.o等价于gcc -c XXX.s -o XXX.o可完成汇编过程。</em></strong></p>
+<ul>
+<li><strong>final step:链接(Linking)</strong><br>链接过程将多个目标文以及所需的库文件(.so等)链接成最终的可执行文件(executable file)。</li>
+</ul>
+<p><strong><em>p.s.ld -o XXX.out XXX.o inc/mymath.o …libraries…可以最后生成可执行文件</em></strong></p>
+</blockquote>
+<ul>
+<li>直接进行全过程”gcc XXX.c -o XXX”，”./XXX”<br>然后再来看一下zero文件：<blockquote>
+<p>/dev/zero也是一个伪文件，但它实际上产生连续不断的null的流（二进制的零流，而不是ASCII型的）。写入它的输出会丢失不见，/dev/zero主要的用处是用来创建一个指定长度用于初始化的空文件，像临时交换文件。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>分别编译了bootblock和kernal，并用sign.c文件规范了bootblock，最后这两部分一起写入ucore.img。<br>1 编译所有生成bin/kernel所需的文件<br>2 链接生成bin/kernel<br>3 编译bootasm.S  bootmain.c  sign.c<br>4 根据sign规范生成obj/bootblock.o<br>5 生成ucore.img</p>
+<hr>
+<p>[练习1.2] 一个被系统认为是符合规范的硬盘主引导扇区的特征是什么?<br>先给出tools/sign.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[]) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">st</span>;</span></span><br><span class="line">    <span class="comment">// 检查输入参数</span></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Usage: &lt;input filename&gt; &lt;output filename&gt;\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 读取文件</span></span><br><span class="line">    <span class="keyword">if</span> (stat(argv[<span class="number">1</span>], &amp;st) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Error opening file '%s': %s\n"</span>, argv[<span class="number">1</span>], strerror(errno));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出文件名和文件大小</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"'%s' size: %lld bytes\n"</span>, argv[<span class="number">1</span>], (<span class="keyword">long</span> <span class="keyword">long</span>)st.st_size);</span><br><span class="line">    <span class="comment">// 如果文件长度大于510，则报错退出</span></span><br><span class="line">    <span class="keyword">if</span> (st.st_size &gt; <span class="number">510</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"%lld &gt;&gt; 510!!\n"</span>, (<span class="keyword">long</span> <span class="keyword">long</span>)st.st_size);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 申请一个512长度的buf数组，并初始化为0</span></span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">512</span>];</span><br><span class="line">    <span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">    FILE *ifp = fopen(argv[<span class="number">1</span>], <span class="string">"rb"</span>);</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">size</span> = fread(buf, <span class="number">1</span>, st.st_size, ifp);</span><br><span class="line">    <span class="comment">// 校验文件长度</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">size</span> != st.st_size) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"read '%s' error, size is %d.\n"</span>, argv[<span class="number">1</span>], <span class="built_in">size</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    fclose(ifp);</span><br><span class="line">    <span class="comment">// 把buf数组的最后两位置为 0x55, 0xAA</span></span><br><span class="line">    buf[<span class="number">510</span>] = <span class="number">0x55</span>;</span><br><span class="line">    buf[<span class="number">511</span>] = <span class="number">0xAA</span>;</span><br><span class="line">    FILE *ofp = fopen(argv[<span class="number">2</span>], <span class="string">"wb+"</span>);</span><br><span class="line">    <span class="built_in">size</span> = fwrite(buf, <span class="number">1</span>, <span class="number">512</span>, ofp);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">size</span> != <span class="number">512</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"write '%s' error, size is %d.\n"</span>, argv[<span class="number">2</span>], <span class="built_in">size</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    fclose(ofp);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"build 512 bytes boot sector: '%s' success!\n"</span>, argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这段代码做的事情除了参数校验以外，就是把源文件读到长度512字节的buf数组里，然后给最后两字节赋值为了0x55和0xAA。</p>
+<p>所以，我们可以猜测主引导扇区的规则如下：</p>
+<ul>
+<li>大小为512字节</li>
+<li>多余的空间填0</li>
+<li>最后16位为0x55AA</li>
+</ul>
+<hr>
+<h3 id="练习2"><a href="#练习2" class="headerlink" title="[练习2]"></a>[练习2]</h3><p>[练习2.1]使用qemu执行并调试lab1中的软件。<br>首先我们在makefile里寻找一下make debug命令，得到以下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-i386 -S -s -parallel stdio -hda bin/ucore.img -serial null &amp;</span><br><span class="line">sleep <span class="number">2</span></span><br><span class="line">gnome-terminal -e gdb -q -tui -x tools/gdbinit</span><br></pre></td></tr></table></figure>
+<ul>
+<li>1.用 qemu 加载镜像并停在最开始，然后放到后台运行。其中 -S 参数是把 cpu 停在最开始，-s 参数是在 tcp::1234 等 gdb 连接，和 -gdb tcp::1234 作用一样。</li>
+<li>2.等两秒，应该是在等 qemu 完全启动好。</li>
+<li>3.开一个新的 gnome-terminal 窗口，并在里面执行命令 gdb -q -tui -x tools/gdbinit。因为我没有 gnome-terminal 所以就在一个新 shell 直接跑了里面的命令。</li>
+</ul>
+<p>此时 tools/gdbinit 的内容为:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> architecture i8086</span><br><span class="line">target remote :<span class="number">1234</span></span><br></pre></td></tr></table></figure>
+<p>在 gdb 窗口中输入 i r 命令可以查看寄存器的状态：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">eax            <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">ecx            <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">edx            <span class="number">0x663</span>    <span class="number">1635</span></span><br><span class="line">ebx            <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">esp            <span class="number">0x0</span>      <span class="number">0x0</span></span><br><span class="line">ebp            <span class="number">0x0</span>      <span class="number">0x0</span></span><br><span class="line">esi            <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">edi            <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">eip            <span class="number">0xfff0</span>   <span class="number">0xfff0</span></span><br><span class="line">eflags         <span class="number">0x2</span>      [ IOPL=<span class="number">0</span> ]</span><br><span class="line">cs             <span class="number">0xf000</span>   <span class="number">61440</span></span><br><span class="line">ss             <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">ds             <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">es             <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">fs             <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">gs             <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">fs_base        <span class="number">0x0</span>      <span class="number">0</span></span><br><span class="line">gs_base        <span class="number">0x0</span>      <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>此时<code>cs=0xf000, eip=0xfff0</code>，所以下一条指令在0xffff0处。<br>输入 <code>x /2i 0xffff0</code> 查看接下来执行的代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb) x /<span class="number">2</span>i <span class="number">0xffff0</span></span><br><span class="line">   <span class="number">0xffff0</span>:     ljmp   $<span class="number">0x3630</span>,$<span class="number">0xf000e05b</span></span><br><span class="line">   <span class="number">0xffff7</span>:     das</span><br></pre></td></tr></table></figure>
+<p>在 qemu 命令中加上 <code>-d in_asm -D bin/q.log</code>参数，可以把执行的汇编指令保存到日志文件 q.log 里。完整命令如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qemu -S -s -parallel stdio -hda bin/ucore.img -serial null \</span><br><span class="line">    -d in_asm -D bin/q.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<p>修改 tools/gdbinit，在 0x7c00 处设置断点，并 continue 然后依次关掉 qemu 和 gdb 直接在日志文件中查看从 0xffff0 到 0x7c00 直接运行的代码。</p>
+<p>此时 tools/gdbinit 的内容为:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> architecture i8086</span><br><span class="line">target remote :<span class="number">1234</span></span><br><span class="line"><span class="keyword">break</span> *<span class="number">0x7c00</span></span><br><span class="line"><span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+<p>tools/q.log 的内容为:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">----------------</span><br><span class="line">IN:</span><br><span class="line"><span class="number">0xfffffff0</span>:  ea <span class="number">5b</span> e0 <span class="number">00</span> f0           ljmpw    $<span class="number">0xf000</span>:$<span class="number">0xe05b</span></span><br><span class="line"></span><br><span class="line">----------------</span><br><span class="line">IN:</span><br><span class="line"><span class="number">0x000fe05b</span>:  <span class="number">2</span>e <span class="number">66</span> <span class="number">83</span> <span class="number">3</span>e b8 <span class="number">60</span> <span class="number">00</span>     cmpl     $<span class="number">0</span>, %cs:<span class="number">0x60b8</span></span><br><span class="line"><span class="number">0x000fe062</span>:  <span class="number">0f</span> <span class="number">85</span> b9 f0              jne      <span class="number">0xd11f</span></span><br><span class="line"></span><br><span class="line">----------------</span><br><span class="line"></span><br><span class="line">    ... (省略<span class="number">20710</span>行)</span><br><span class="line">    </span><br><span class="line">----------------</span><br><span class="line">IN:</span><br><span class="line"><span class="number">0x000edefa</span>:  c6 <span class="number">05</span> ee bd <span class="number">0</span>e <span class="number">00</span> <span class="number">01</span>     movb     $<span class="number">1</span>, <span class="number">0xebdee</span></span><br><span class="line"><span class="number">0x000edf01</span>:  <span class="number">58</span>                       popl     %eax</span><br><span class="line"><span class="number">0x000edf02</span>:  <span class="number">5b</span>                       popl     %ebx</span><br><span class="line"><span class="number">0x000edf03</span>:  c3                       retl</span><br><span class="line"></span><br><span class="line">----------------</span><br><span class="line">IN:</span><br><span class="line"><span class="number">0x000ef79c</span>:  b9 ad <span class="number">80</span> <span class="number">0f</span> <span class="number">00</span>           movl     $<span class="number">0xf80ad</span>, %ecx</span><br><span class="line"><span class="number">0x000ef7a1</span>:  <span class="number">31</span> d2                    xorl     %edx, %edx</span><br><span class="line"><span class="number">0x000ef7a3</span>:  <span class="number">8</span>d <span class="number">44</span> <span class="number">24</span> <span class="number">0</span>e              leal     <span class="number">0xe</span>(%esp), %eax</span><br><span class="line"><span class="number">0x000ef7a7</span>:  e8 <span class="number">06</span> e4 ff ff           calll    <span class="number">0xedbb2</span></span><br><span class="line"></span><br><span class="line">----------------</span><br><span class="line">IN:</span><br><span class="line"><span class="number">0x00007c00</span>:  fa                       cli</span><br></pre></td></tr></table></figure>
+<p>[练习2.2，2.3]<br>从0x7c00开始跟踪代码运行,将单步跟踪反汇编得到的代码与bootasm.S和 bootblock.asm进行比较。</p>
+<ul>
+<li><strong>方案1</strong>：执行<code>make debug</code>命令，启动qemu和gdb开始debug。<br>然后在gdb中输入<code>b *0x7c00</code>回车，在内存0x7c00处设置断点。<br>再输入<code>continue</code>回车让程序继续执行，程序会在前面设置的0x7c00的断点处停下来。<br>输入x /10i $pc查看接下来的10条指令，得到如下输出:<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">=&gt; <span class="number">0x7c00</span>:      cli                    </span><br><span class="line">   <span class="number">0x7c01</span>:      cld                    </span><br><span class="line">   <span class="number">0x7c02</span>:      <span class="keyword">xor</span>    %eax,%eax       </span><br><span class="line">   <span class="number">0x7c04</span>:      mov    %eax,%ds        </span><br><span class="line">   <span class="number">0x7c06</span>:      mov    %eax,%es        </span><br><span class="line">   <span class="number">0x7c08</span>:      mov    %eax,%ss        </span><br><span class="line">   <span class="number">0x7c0a</span>:      in     $<span class="number">0x64</span>,%al       </span><br><span class="line">   <span class="number">0x7c0c</span>:      test   $<span class="number">0x2</span>,%al        </span><br><span class="line">   <span class="number">0x7c0e</span>:      jne    <span class="number">0x7c0a</span>          </span><br><span class="line">   <span class="number">0x7c10</span>:      mov    $<span class="number">0xd1</span>,%al</span><br></pre></td></tr></table></figure>
+可以发现，这和boot/bootasm.S文件中的内容一致。通过单步跟踪，发现执行指令确实是bootasm.S中的指令，大致过程如下：</li>
+</ul>
+<blockquote>
+<p>1.禁用中断 (cli)<br>2.复位操作方向标志(cld)<br>3.初始化ds, es, ss寄存器为0<br>4.激活A20地址线<br>5.加载全局描述符表 (gdt)<br>6.打开cr0 ( 开启保护模式)<br>7.切换到32位模式<br>8.设置ds, es, fs, gs, ss为0x10<br>9.设置栈顶指针、栈底指针<br>10.调用bootmain</p>
+</blockquote>
+<p>上面最后一步跳转到bootmain中执行，接下来我们来看下bootmain中的执行过程:</p>
+<blockquote>
+<p>1.从硬盘起始处读取4k内容到内存0x10000处<br>2.加载各程序段<br>3.调用ELFHDR-&gt;e_entry的入口函数</p>
+</blockquote>
+<p>可以看出上面最后调用调用ELFHDR-&gt;e_entry的入口函数，即切换到kernel处了。bootblock.asm把bootasm.S和bootmain.c都内容都整合到一起了。并且bootblock.asm中每行代码下面都带有地址信息，和用gdb单步调试的时候基本一致。</p>
+<ul>
+<li><strong>方案2</strong>：<br>也可以直接修改 gdbinit文件，实现在0x7c00处断点：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> architecture i8086</span><br><span class="line">target remote :<span class="number">1234</span></span><br><span class="line">b *<span class="number">0x7c00</span></span><br><span class="line">c</span><br><span class="line">x/<span class="number">2</span>i $pc</span><br></pre></td></tr></table></figure>
+[练习2.4] 自己找一个bootloader或内核中的代码位置，设置断点并进行测试。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> architecture i8086</span><br><span class="line">target remote :<span class="number">1234</span></span><br><span class="line"><span class="keyword">break</span> *<span class="number">0x7c4a</span></span><br></pre></td></tr></table></figure></li>
+<li>上面这段gdbinit代码会在<code>make debug</code>命令在执行时先在0xffff0处中断，当在gdb中输入c回车时，会执行到0x7c4a(bootmain)处再次break。 </li>
+</ul>
 
-        <div class="article-info info-on-right">
-          
-          
+      
+<!-- 添加版权声明 -->
+      
+	
+  	<div class="declare" hidden="hidden"></div>
+	
+<!-- 添加版权声明 -->
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/22/Ucore-lab1-part1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/21/Multithread-OS-Win-Linux/" class="archive-article-date">
-  	<time datetime="2020-03-20T18:23:38.806Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-21</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/21/Multithread-OS-Win-Linux/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Multithread-OS-Win-Linux</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/21/Multithread-OS-Win-Linux/">Multithread-OS-Win-Linux</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -244,8 +413,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
