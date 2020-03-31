@@ -154,6 +154,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ucore-lab1-part2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/31/ucore-lab1-part2/">ucore-lab1-part2</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/31/ucore-lab1-part2/" class="archive-article-date">
+  	<time datetime="2020-03-31T14:16:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Ucore-lab1-experimental-report"><a href="#Ucore-lab1-experimental-report" class="headerlink" title="Ucore_lab1 experimental report"></a>Ucore_lab1 experimental report</h1><ul>
+<li>part2 练习3~4</li>
+</ul>
+<hr>
+<h4 id="练习3-分析bootloader进入保护模式的过程。"><a href="#练习3-分析bootloader进入保护模式的过程。" class="headerlink" title="[练习3] 分析bootloader进入保护模式的过程。"></a><strong>[练习3]</strong> 分析bootloader进入保护模式的过程。</h4><hr>
+<p>[练习3.1] 为何开启A20，以及如何开启A20？<br>[练习3.2] 如何初始化GDT表？<br>[练习3.3] 如何使能和进入保护模式</p>
+<p>先来整体看一下bootasm文件在都做了些什么：</p>
+<blockquote>
+<ul>
+<li>1.关中断和清除数据段寄存器</li>
+<li>2.激活A20地址线</li>
+<li>3.加载全局描述符表 (gdt)</li>
+<li>4.打开cr0 ( 开启保护模式)</li>
+</ul>
+</blockquote>
+        
+          <a class="article-more-a" href="/2020/03/31/ucore-lab1-part2/#more">more >></a>
+        
+      
+<!-- 添加版权声明 -->
+      
+	
+  	<div class="declare" hidden="hidden"></div>
+	
+<!-- 添加版权声明 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/31/ucore-lab1-part2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ucore-lab1-part1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
