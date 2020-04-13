@@ -16,7 +16,7 @@
 <meta property="og:description" content="ucore lab1 实验报告（全）练习一：理解通过make生成执行文件的过程 —by zsh [1.1] 操作系统镜像文件ucore.img是如何一步步生成的?(需要比较详细地解释Makefile中每一条相关命令和命令参数的含义,以及说明命令导致的结果)  使用命令make V&#x3D;查看make具体执行了哪些命令主要可分为五个部分1.编译所有生成bin&#x2F;kernel所需的文件 12345678910">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-13T02:08:40.000Z">
-<meta property="article:modified_time" content="2020-04-13T02:09:03.982Z">
+<meta property="article:modified_time" content="2020-04-13T02:12:28.080Z">
 <meta property="article:author" content="Somnus">
 <meta name="twitter:card" content="summary">
   
@@ -444,7 +444,7 @@
 <li>32～47位：属性信息（包括DPL等）;</li>
 <li>48～63位：偏移地址的16～31位。</li>
 </ul>
-<p>16<del>32位的段选择子，用于索引全局描述符表GDT来获取中断处理代码对应的 段地址，再加上第0</del>15、48~63位构成的偏移地址，即可得到中断处理代码的入口。</p>
+<p>16 ~ 32位的段选择子，用于索引全局描述符表GDT来获取中断处理代码对应的 段地址，再加上第0 ~ 15、48 ~ 63位构成的偏移地址，即可得到中断处理代码的入口。</p>
 <blockquote>
 <p><strong>[6.2]</strong> 请编程完善kern/trap/trap.c中对中断向量表进行初始化的函数idt_init。在idt_init函数中，依次对所有中断入口进行初始化。使用mmu.h中的SETGATE宏，填充idt数组内容。每个中断的入口由tools/vectors.c生成，使用trap.c中声明的vectors数组即可。</p>
 </blockquote>
