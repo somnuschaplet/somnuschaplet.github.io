@@ -154,6 +154,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-lab1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/13/lab1/">lab1</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/13/lab1/" class="archive-article-date">
+  	<time datetime="2020-04-13T02:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ucore-lab1-实验报告（全）"><a href="#ucore-lab1-实验报告（全）" class="headerlink" title="ucore lab1 实验报告（全）"></a>ucore lab1 实验报告（全）</h1><h3 id="练习一：理解通过make生成执行文件的过程-—by-zsh"><a href="#练习一：理解通过make生成执行文件的过程-—by-zsh" class="headerlink" title="练习一：理解通过make生成执行文件的过程 —by zsh"></a>练习一：理解通过make生成执行文件的过程 —by zsh</h3><blockquote>
+<p><strong>[1.1]</strong> 操作系统镜像文件ucore.img是如何一步步生成的?(需要比较详细地解释Makefile中每一条相关命令和命令参数的含义,以及说明命令导致的结果)</p>
+</blockquote>
+<p>使用命令<code>make V=</code>查看make具体执行了哪些命令<br>主要可分为五个部分<br><strong>1.编译所有生成<code>bin/kernel</code>所需的文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">+ cc kern&#x2F;init&#x2F;init.c</span><br><span class="line">gcc -Ikern&#x2F;init&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;init&#x2F;init.c -o obj&#x2F;kern&#x2F;init&#x2F;init.o</span><br><span class="line">+ cc kern&#x2F;libs&#x2F;stdio.c</span><br><span class="line">gcc -Ikern&#x2F;libs&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;libs&#x2F;stdio.c -o obj&#x2F;kern&#x2F;libs&#x2F;stdio.o</span><br><span class="line">+ cc kern&#x2F;libs&#x2F;readline.c</span><br><span class="line">gcc -Ikern&#x2F;libs&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;libs&#x2F;readline.c -o obj&#x2F;kern&#x2F;libs&#x2F;readline.o</span><br><span class="line">+ cc kern&#x2F;debug&#x2F;panic.c</span><br><span class="line">gcc -Ikern&#x2F;debug&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;debug&#x2F;panic.c -o obj&#x2F;kern&#x2F;debug&#x2F;panic.o</span><br><span class="line">+ cc kern&#x2F;debug&#x2F;kdebug.c</span><br><span class="line">gcc -Ikern&#x2F;debug&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;debug&#x2F;kdebug.c -o obj&#x2F;kern&#x2F;debug&#x2F;kdebug.o</span><br><span class="line">+ cc kern&#x2F;debug&#x2F;kmonitor.c</span><br><span class="line">gcc -Ikern&#x2F;debug&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;debug&#x2F;kmonitor.c -o obj&#x2F;kern&#x2F;debug&#x2F;kmonitor.o</span><br><span class="line">+ cc kern&#x2F;driver&#x2F;clock.c</span><br><span class="line">gcc -Ikern&#x2F;driver&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;driver&#x2F;clock.c -o obj&#x2F;kern&#x2F;driver&#x2F;clock.o</span><br><span class="line">+ cc kern&#x2F;driver&#x2F;console.c</span><br><span class="line">gcc -Ikern&#x2F;driver&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;driver&#x2F;console.c -o obj&#x2F;kern&#x2F;driver&#x2F;console.o</span><br><span class="line">+ cc kern&#x2F;driver&#x2F;picirq.c</span><br><span class="line">gcc -Ikern&#x2F;driver&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;driver&#x2F;picirq.c -o obj&#x2F;kern&#x2F;driver&#x2F;picirq.o</span><br><span class="line">+ cc kern&#x2F;driver&#x2F;intr.c</span><br><span class="line">gcc -Ikern&#x2F;driver&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;driver&#x2F;intr.c -o obj&#x2F;kern&#x2F;driver&#x2F;intr.o</span><br><span class="line">+ cc kern&#x2F;trap&#x2F;trap.c</span><br><span class="line">gcc -Ikern&#x2F;trap&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;trap&#x2F;trap.c -o obj&#x2F;kern&#x2F;trap&#x2F;trap.o</span><br><span class="line">+ cc kern&#x2F;trap&#x2F;vectors.S</span><br><span class="line">gcc -Ikern&#x2F;trap&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;trap&#x2F;vectors.S -o obj&#x2F;kern&#x2F;trap&#x2F;vectors.o</span><br><span class="line">+ cc kern&#x2F;trap&#x2F;trapentry.S</span><br><span class="line">gcc -Ikern&#x2F;trap&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;trap&#x2F;trapentry.S -o obj&#x2F;kern&#x2F;trap&#x2F;trapentry.o</span><br><span class="line">+ cc kern&#x2F;mm&#x2F;pmm.c</span><br><span class="line">gcc -Ikern&#x2F;mm&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F; -Ikern&#x2F;debug&#x2F; -Ikern&#x2F;driver&#x2F; -Ikern&#x2F;trap&#x2F; -Ikern&#x2F;mm&#x2F; -c kern&#x2F;mm&#x2F;pmm.c -o obj&#x2F;kern&#x2F;mm&#x2F;pmm.o</span><br><span class="line">+ cc libs&#x2F;string.c</span><br><span class="line">gcc -Ilibs&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F;  -c libs&#x2F;string.c -o obj&#x2F;libs&#x2F;string.o</span><br><span class="line">+ cc libs&#x2F;printfmt.c</span><br><span class="line">gcc -Ilibs&#x2F; -march&#x3D;i686 -fno-builtin -fno-PIC -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs&#x2F;  -c libs&#x2F;printfmt.c -o obj&#x2F;libs&#x2F;printfmt.o</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/04/13/lab1/#more">more >></a>
+        
+      
+<!-- 添加版权声明 -->
+      
+	
+  	<div class="declare" hidden="hidden"></div>
+	
+<!-- 添加版权声明 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/13/lab1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ucore-lab1-part2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
